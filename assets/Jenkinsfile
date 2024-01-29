@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    tools {
+        go 'go-1.17'
+    }
+
+    environment {
+        GO111MODULE='on'
+    }
+
+    stages {
+        stage('Development') {
+           steps {
+                git 'https://github.com/Balogun9/Resturant.git'
+                // sh 'go test ./...'
+            }
+        }
+
+        stage ('Building our image') {  
+            steps {
+                script{
+                    app = docker build("Balogun9/Resturant")
+                }
+            }
+        }
+
+    }
+}
